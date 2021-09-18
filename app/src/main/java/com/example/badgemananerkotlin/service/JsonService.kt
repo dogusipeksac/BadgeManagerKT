@@ -28,30 +28,51 @@ class JsonService private constructor() {
     }
 
 
-
     private lateinit var _context:Context
-    fun getContext():Context{
+    private fun getContext():Context{
         return _context
     }
     fun setContext(value:Context){
         _context=value
     }
+    private lateinit var dataModelList: ArrayList<Data>
+    fun setDataModelList(value: List<Data>){
+        dataModelList= value as ArrayList<Data>
+    }
+    fun getDataModelList():List<Data>{
+        return dataModelList
+    }
+
+    private lateinit var badgeDataModelList: ArrayList<BadgeData>
 
     companion object{
         var single=JsonService()
         fun getInstance():JsonService{
             if(single==null){
                 single= JsonService()
+
             }
             return single
         }
 
     }
 
-    lateinit var dataModelList: ArrayList<Data>
-    lateinit var badgeDataModelList: ArrayList<BadgeData>
-    var sizeGeneral :Int=0
-    var ratingAverageGeneral :Float= 0f
+
+    private var _sizeGeneral :Int=0
+    fun getSizeGeneral():Int{
+        return _sizeGeneral
+    }
+    fun setSizeGeneral(value: Int){
+        _sizeGeneral=value
+    }
+
+    private var _ratingAverageGeneral :Float= 0f
+    fun getRatingGeneral():Float{
+        return _ratingAverageGeneral
+    }
+    fun setRatingGeneral(value: Float){
+        _ratingAverageGeneral=value
+    }
 
     fun loadJSONFromAssets(fileName: String): String {
         return getContext().assets.open(fileName).bufferedReader().use { reader ->
@@ -62,6 +83,7 @@ class JsonService private constructor() {
 
     fun bindJSONDataInFacilityList():List<Data> {
         dataModelList = ArrayList<Data>()
+        var ratingSum = 0
         val jsonObject = JSONObject(loadJSONFromAssets("list-data.json")) // Extension Function call here
         val jsonArraylist = jsonObject.getJSONArray("Row")
         for (i in 0 until jsonArraylist.length()) {
@@ -97,6 +119,8 @@ class JsonService private constructor() {
 
             var ratingScrore:Int?=null
             ratingScrore = dataJSONObject.getInt("PraiseRating")
+            ratingSum += ratingScrore
+
             val dataModel = Data()
 
             dataModel.getRelated_person().setRelatedPersonTitle(relatedPersonTitle)
@@ -110,6 +134,8 @@ class JsonService private constructor() {
             dataModelList.add(dataModel)
         }
 
+        setSizeGeneral(dataModelList.size)
+        ratingAverage(ratingSum,getSizeGeneral());
         return dataModelList
     }
     fun bindJSONBadgeDataInFacilityList():List<BadgeData>
@@ -138,7 +164,7 @@ class JsonService private constructor() {
 
 
 
-       return badgeDataModelList
+       return badgeDataModelList!!
     }
 
 
@@ -164,7 +190,7 @@ class JsonService private constructor() {
     fun calculateSize(id: Int): Int {
         var size = 0
         for (i in 0 until dataModelList.size) {
-            if (dataModelList.get(i).getBadgeData().getBadgeId()== id) {
+            if (dataModelList[i].getBadgeData().getBadgeId()== id) {
                 size++
             }
         }
@@ -184,5 +210,34 @@ class JsonService private constructor() {
         ims?.close()
         getImageMap()[key] = bitmap
 
+    }
+
+    //rozetlerin sayısını ratinge bölen fonksiyon average hesaplıyor
+    fun calculateAverage(id: Int): Float {
+        var avarage = 0f
+        for (i in 0 until dataModelList.size) {
+            if (dataModelList[i].getBadgeData().getBadgeId()== id) {
+                avarage += dataModelList[i].getPraiseRating()
+            }
+        }
+        return avarage / calculateSize(id)
+    }
+
+    //butun rozetlerin toplamını alıp listenin sayısına bölen fonsiyon
+    fun ratingAverage(ratingSum: Int, size: Int): Float {
+        setRatingGeneral(ratingSum.toFloat() / size.toFloat())
+        return getRatingGeneral()
+    }
+
+
+    //spinner nesnesindeki title göre getiriyor
+    fun getWithTitleList(title: String): List<Data>? {
+        val getSelectedForItemList: MutableList<Data> = ArrayList()
+        for (i in 0 until dataModelList.size) {
+            if (title.equals(dataModelList[i].getBadgeData().getBadgeTitle(), ignoreCase = true)) {
+                getSelectedForItemList.add(dataModelList[i])
+            }
+        }
+        return getSelectedForItemList
     }
 }

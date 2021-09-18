@@ -14,9 +14,17 @@ import com.example.badgemananerkotlin.R
 import com.example.badgemananerkotlin.service.JsonService
 
 
-class ListAdapter (val dataList:List<Data>):
+class ListAdapter ():
     RecyclerView.Adapter<ListAdapter.MyModelViewHolder>() {
 
+    private lateinit var dataList:List<Data>
+    fun getDataList():List<Data>{
+        return dataList
+    }
+    fun setDataList(value:List<Data>){
+        dataList=value
+        notifyDataSetChanged()
+    }
 
     class MyModelViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
         var related_name: TextView? = itemView.findViewById(R.id.related_name)
@@ -36,8 +44,7 @@ class ListAdapter (val dataList:List<Data>):
             message?.text=data.getMessage()
             ratingBar?.rating=data.getPraiseRating().toFloat()
             badges_image.setImageBitmap(
-                JsonService.getInstance().getImageMap()[data.getBadgeData().getBadgeId()]
-            )
+                JsonService.getInstance().getImageMap().get(data.getBadgeData().getBadgeId()))
 
         }
     }

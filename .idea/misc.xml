@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26666666666666666" />
+        <entry key="app/src/main/res/layout/badge_item.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/layout/grid.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/layout/grid_view.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.26666666666666666" />
+        <entry key="app/src/main/res/layout/spinner_item.xml" value="0.22864583333333333" />
       </map>
     </option>
   </component>
