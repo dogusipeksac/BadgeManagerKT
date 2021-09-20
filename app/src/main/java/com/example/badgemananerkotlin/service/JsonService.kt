@@ -80,7 +80,7 @@ class JsonService private constructor() {
         }
     }
 
-
+    //list data için verilerin jsondan getirilmesi
     fun bindJSONDataInFacilityList():List<Data> {
         dataModelList = ArrayList<Data>()
         var ratingSum = 0
@@ -138,6 +138,8 @@ class JsonService private constructor() {
         ratingAverage(ratingSum,getSizeGeneral());
         return dataModelList
     }
+
+    //badge-data için listelerin jsondan getirilmesi
     fun bindJSONBadgeDataInFacilityList():List<BadgeData>
     {
         badgeDataModelList = ArrayList<BadgeData>()
