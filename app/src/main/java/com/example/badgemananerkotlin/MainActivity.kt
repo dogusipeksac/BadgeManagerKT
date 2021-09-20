@@ -44,7 +44,6 @@ class MainActivity(): AppCompatActivity() {
     private lateinit var mIndicator: PageIndicator
     private lateinit var awesomePager: ViewPager
 
-
     private var first = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +58,7 @@ class MainActivity(): AppCompatActivity() {
 
 
     }
+    //4 lü şekilde ayırmak için
     private fun arrayWithFourGroup() {
         mainActivityViewModel.setDataBadgeList()
         mainActivityViewModel.getBadgeDataListObserve().observe(this@MainActivity,
@@ -70,6 +70,8 @@ class MainActivity(): AppCompatActivity() {
             })
 
     }
+    //başına tüm rozetler eklenildikten sonra listemi tekrardan yazdırıp
+    //seçilen iteme göre altttaki listemi yani list-datamı güncelliyorum
     private fun spinnerGetList() {
         mainActivityViewModel.setBadgeAddedDataListForSpinner()
         mainActivityViewModel.getBadgeDataListForSpinnerObserve()
@@ -99,7 +101,8 @@ class MainActivity(): AppCompatActivity() {
     }
 
     //alttaki liste için
-    //item selected için iki kere girmesi engelleniyor
+    //spinnerdaki item selected için iki kere girmesi engelleniyor
+
     fun setAdapterBottomList(listData: List<Data?>?) {
         if (first) {
             first = false
@@ -108,6 +111,7 @@ class MainActivity(): AppCompatActivity() {
         }
     }
 
+    //alttaki list-data için
     private fun forDataList() {
         mainActivityViewModel.getDataListObserve()
             .observe(this@MainActivity,
@@ -123,6 +127,7 @@ class MainActivity(): AppCompatActivity() {
                 })
     }
 
+    //burada ortalama ve toplam kaç rozetin olduğunu yazdırıyorum en üstteki card slider
     private fun cardSlider() {
         val number=mainActivityViewModel.getDataSize()
         numberText.text="$number adet"
@@ -133,7 +138,7 @@ class MainActivity(): AppCompatActivity() {
     }
 
 
-
+    //başlangıç değerleri atılıyor
     fun init(){
         numberText=findViewById(R.id.number)
         ratingBar=findViewById(R.id.ratingBarMain)

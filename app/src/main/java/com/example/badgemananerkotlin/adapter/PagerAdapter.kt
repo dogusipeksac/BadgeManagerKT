@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.example.badgemananerkotlin.fragment.GridFragment
 
-
+//bu sadece sayfalama için kullnılıyor
 class PagerAdapter(fm: FragmentManager?, private val fragments: List<GridFragment>) :
     FragmentPagerAdapter(fm)  {
     override fun getItem(position: Int): Fragment? {

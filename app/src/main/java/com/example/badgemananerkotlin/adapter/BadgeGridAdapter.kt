@@ -64,7 +64,7 @@ class BadgeGridAdapter(private var context: Context):BaseAdapter(){
        service = JsonService.getInstance()
        mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
        if(view==null){
-
+          
            view=mInflater.inflate(R.layout.badge_item,parent,false)
            viewHolder = ViewHolder()
            viewHolder.imageView=view.findViewById(R.id.badgesImage)
@@ -76,6 +76,7 @@ class BadgeGridAdapter(private var context: Context):BaseAdapter(){
        else{
            viewHolder=view.tag as ViewHolder
        }
+        //Grid içindeki bir itemin bilgilerinin set edilmesi
         var gridItems:BadgeData=items[position]
         number=service.calculateSize(gridItems.getBadgeId())
         viewHolder.title?.text=gridItems.getBadgeTitle()

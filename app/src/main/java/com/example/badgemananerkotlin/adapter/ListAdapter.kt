@@ -27,6 +27,7 @@ class ListAdapter ():
     }
 
     class MyModelViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
+        // burada kotlin-extensions(import edildi ama kullanılmadı) ile de kullanılabilirdi
         var related_name: TextView? = itemView.findViewById(R.id.related_name)
         var created_date: TextView? = itemView.findViewById(R.id.crated_date)
         var badge_title: TextView? = itemView.findViewById(R.id.badget_title)
@@ -34,10 +35,12 @@ class ListAdapter ():
         var ratingBar: RatingBar? = itemView.findViewById(R.id.ratingBar)
         //bu manuel
         var profileImage: ImageView? =itemView.findViewById(R.id.profile_image)
+
         var badges_image: ImageView = itemView.findViewById(R.id.badges_image)
 
 
         fun bindItems(data: Data) {
+            //list-data için itemleri set etmek
             related_name?.text = data.getRelated_person().getRelatedPersonTitle()
             created_date?.text=data.getCreatedDate()+"de gönderdi"
             badge_title?.text=data.getBadgeData().getBadgeTitle()

@@ -12,7 +12,6 @@ import com.example.badgemananerkotlin.fragment.GridFragment
 
 
 
-
 class MainActivityViewModel :ViewModel() {
     private lateinit var mDataList: MutableLiveData<List<Data>>
     fun getDataListObserve(): MutableLiveData<List<Data>> {
@@ -110,6 +109,8 @@ class MainActivityViewModel :ViewModel() {
 
     private lateinit var context: Context
 
+    //burada jsona bağlanmak için bir context atıyorum ve gerekli
+    // değişkenlierimi ve litelerimi açıyorum
     fun init(context: Context){
         service = JsonService.getInstance()
         service.setContext(context)

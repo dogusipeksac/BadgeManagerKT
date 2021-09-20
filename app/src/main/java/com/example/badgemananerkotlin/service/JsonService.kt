@@ -151,6 +151,8 @@ class JsonService private constructor() {
             title=objectBadgeData.getString("Title")
             var id :Int?= 0
             id = objectBadgeData.getInt("Id")
+
+            //burada eğer o rozetin sayısı 0 ise yazdırmıyor
             if(calculateSize(id)!=0){
                 var badgeData=BadgeData()
                 addImages(id)
